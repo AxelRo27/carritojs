@@ -1,66 +1,11 @@
-const productos = [
-  //Camperas
-  {
-    id:"camperas",
-    titulo: "Campera",
-    imagen: "campera.img",
-    categoria: {
-          nombre: "Camperas",
-          id: "camperas"
-    },
-    precio: 2000
-  },
-  {
-    id:"campera2",
-    titulo: "Campera2",
-    imagen: "campera2.img",
-    categoria: {
-          nombre: "Camperas",
-          id: "camperas"
-    },
-    precio: 2000
-  },
-  {
-    id:"remeras",
-    titulo:"Remera",
-    imagen:"remera.img",
-    categoria:{
-      nombre: "Remera",
-      id: "remeras"
-    },
-    precio: 2000
-  },
-  {
-    id:"remeras2",
-    titulo:"Remera2",
-    imagen:"remera2.img",
-    categoria:{
-      nombre: "Remeras",
-      id: "remeras"
-    },
-    precio: 2000
-  },
-  {
-    id:"pantalones",
-    titulo:"Pantalon",
-    imagen:"pantalon.img",
-    categoria:{
-      nombre: "Pantalones",
-      id: "pantalones"
-    },
-    precio: 2000
-  },
-  {
-    id:"pantalones2",
-    titulo:"Pantalones2",
-    imagen:"pantalon2.img",
-    categoria:{
-      nombre: "Pantalon",
-      id: "pantalones"
-    },
-    precio: 2000
-  },
-];
+let productos = [];
+
+fetch("./js/productos.json")
+    .then(response => response.json())
+    .then(data => {
+        productos = data;
+        cargarProductos(productos);
+    })
 
 const contenedorProductos = document.querySelector("#contenedor-productos");
 const botonesCategorias = document.querySelectorAll(".boton-categoria");
@@ -98,8 +43,6 @@ function cargarProductos(productosElegidos) {
     actualizarBotonesAgregar();
 }
 
-cargarProductos(productos);
-
 botonesCategorias.forEach(boton  => {
     boton.addEventListener("click", (e) => {
 
@@ -133,6 +76,26 @@ function actualizarBotonesAgregar() {
 const productosEnCarrito = [];
 
   function agregarAlCarrito(e){
+
+    Toastify({
+      text: "Producto agregado",
+      duration: 3000,
+      close: true,
+      gravity: "top", 
+      position: "right", 
+      stopOnFocus: true, 
+      style: {
+        background: "linear-gradient(to right, #4b33a8, #785ce9)",
+        borderRadius: "2rem",
+        textTransform: "uppercase",
+        fontSize: ".75rem"
+      },
+      offset: {
+          x: '1.5rem', 
+          y: '1.5rem' 
+        },
+      onClick: function(){} 
+    }).showToast();
 
     const idBoton = e.currentTarget.id;
     const productoAgregado = productos.find (producto => producto.id === idBoton);
